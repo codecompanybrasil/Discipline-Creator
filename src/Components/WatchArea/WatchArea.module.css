@@ -1,0 +1,9 @@
+.textArea {
+    height: 800px;
+    width: 800px;
+}
+
+.button_area {
+    display: flex;
+    justify-content: space-around;
+}

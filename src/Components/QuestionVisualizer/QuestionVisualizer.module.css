@@ -1,0 +1,10 @@
+.query_main {
+    margin-left: 10px;
+    background-color: var(--black);
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    display: inline-flex;
+    cursor: pointer;
+    margin-top: 10px;
+}
