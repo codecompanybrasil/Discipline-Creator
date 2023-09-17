@@ -17,7 +17,7 @@ interface item {
 function App() {
     const [itemsDiscipline, setItemsDiscipline] = useState<DcpQuestionAndQuestionGroup[]>([])
     const [titleAvaliacao, setTitleAvaliacao] = useState<string>("")
-    const [hashAvaliacao, setHashAvaliacao] = useState<string>("")
+    const [hashAvaliacao, setHashAvaliacao] = useState<string>(() => self.crypto.randomUUID())
     const [hashItem, setHashItem] = useState<string[]>([])
     const [typeItem, setTypeItem] = useState<string[]>([])
     const [orderItem, setOrderItem] = useState<number[]>([])
@@ -91,6 +91,8 @@ function App() {
     const [items, setItems] = useState<item[]>([])
 
     const disciplineCreator = {
+        hash: hashAvaliacao,
+        title: titleAvaliacao,
         sections: [
             {
                 items: itemsDiscipline,
@@ -165,9 +167,15 @@ function App() {
     return (
         <main className="container py-3">
             <div className="row">
-                <div className="col-12 col-md-4">
-                    <InputArea title="Título da avaliacao" placeholder="Título da Avaliacao" handleInputValue={handleQuestionReadyTitles} />
-                    <InputArea title="Hash da avaliacao" handleInputValue={handleHashAvaliacao} />
+                <div className="col-12 col-md-4 form-area">
+                    <InputArea
+                        title="Título da avaliacao"
+                        placeholder="Título da Avaliacao"
+                        handleInputValue={handleQuestionReadyTitles} />
+                    <InputArea
+                        title="Hash da avaliacao (UUID)"
+                        placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                        handleInputValue={handleHashAvaliacao} />
                     {items.map((value) => (
                         <div key={value ? value.order : ""}>
                             {value.content}
