@@ -27,9 +27,8 @@ function WatchArea({ disciplineObject }: WatchAreaProps) {
         const blob = new Blob([JSON.stringify(disciplineObject, null, 4)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        const titleSanited = disciplineObject.sections[0].title?.replace(" ", "_")
         a.href = url;
-        a.download = `${titleSanited}.json`;
+        a.download = `${disciplineObject.hash}.json`;
         a.click();
         URL.revokeObjectURL(url);
     }
