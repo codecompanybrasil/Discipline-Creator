@@ -6,8 +6,22 @@
     cursor: pointer;
 }
 
-.main {
-    display: flex;
+/* FIX - Incluir customização de input no Discipline Core */
+.form-control {
+    display: block;
     width: 100%;
-    justify-content: space-around;
+    padding: .200rem .40rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--dcp-black-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: var(--dcp-white-color);
+    background-clip: padding-box;
+    border: 1px solid black;
+    border-radius: var(--dcp-border-radius-sm);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
+/*  */

@@ -1,21 +1,5 @@
 .input {
-    background-color: white;
+    background-color: var(--dcp-white-color);
     border: 2px solid black;
-    border-radius: 10px;
-    height: 20px;
-}
-
-.input_area {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.input_area_group {
-    margin-top: 10px;
-}
-
-.inputs_input_group {
-    margin-left: 30px;
+    border-radius: var(--dcp-border-radius-sm);
 }

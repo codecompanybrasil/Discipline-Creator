@@ -6,7 +6,7 @@ type WatchAreaProps = {
     disciplineObject: any;
 }
 
-function WatchArea({disciplineObject}: WatchAreaProps) {
+function WatchArea({ disciplineObject }: WatchAreaProps) {
     const textAreaRef = useRef(null)
     const [textDestravar, setTextDestravar] = useState<("Destravar" | "Travar")>("Destravar")
     const [textAreaReadOnly, setTextAreaReadOnly] = useState<boolean>(true)
@@ -41,8 +41,13 @@ function WatchArea({disciplineObject}: WatchAreaProps) {
     }
 
     return (
-        <div>
-            <textarea ref={textAreaRef} style={{resize: "none"}} value={JSON.stringify(disciplineObject, null, 4)} readOnly={textAreaReadOnly} className={styles.textArea}></textarea>
+        <div className={styles.watchAreaContainer}>
+            <textarea
+                ref={textAreaRef}
+                value={JSON.stringify(disciplineObject, null, 4)}
+                readOnly={textAreaReadOnly}
+                className={styles.textArea + ' form-control'}
+                style={{ resize: "none" }}></textarea>
             <div className={styles.button_area}>
                 <button onClick={onCopyButtonClick}>Copiar</button>
                 <button onClick={handleDownloadJSON}>Download</button>

@@ -1,6 +1,13 @@
+.watchAreaContainer {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 1fr auto;
+    grid-gap: 10px;
+    height: inherit;
+}
+
 .textArea {
-    height: 800px;
-    width: 800px;
+    height: 100%;
 }
 
 .button_area {

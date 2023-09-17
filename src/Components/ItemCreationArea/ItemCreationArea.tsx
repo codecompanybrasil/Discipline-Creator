@@ -15,16 +15,16 @@ type ItemCreationArea = {
 function ItemCreationArea(props: ItemCreationArea) {
     const [questionStyle, setQuestionStyle] = useState<CSSProperties>({display: "flex"})
     const inputsList: InputAreaProps[] = []
-    const inputsListDetails = {
+    const inputsListDetails: {titles: string[], types: ("text"|"textArea")[]} = {
         titles: ["title", "order", "image"],
-        textAreas: [false, false, false, true]
+        types: ["text", "text", "text", "textArea"]
     }
 
     for (let i=0;i<inputsListDetails.titles.length;i++) {
         inputsList.push({
             title: inputsListDetails.titles[i],
             order: i,
-            textArea: inputsListDetails.textAreas[i],
+            type: inputsListDetails.types[i],
             handleInputValue: inputsListDetails.handleInputValue
         })
     }

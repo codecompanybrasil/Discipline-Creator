@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import WatchArea from "./Components/WatchArea/WatchArea";
 import { DcpQuestionAndQuestionGroup, DcpItemHeader } from "./_types/Question";
 import ItemCreationArea from "./Components/ItemCreationArea/ItemCreationArea";
@@ -37,7 +37,7 @@ function App() {
     useEffect(() => {
         const copyItemsArray = [...itemsDiscipline]
 
-        for (let i=0;i<hashItem.length;i++) {
+        for (let i = 0; i < hashItem.length; i++) {
             if (hashItem[i] == undefined) {
                 hashItem.splice(i, 1)
             }
@@ -45,11 +45,11 @@ function App() {
 
         console.log(hashItem)
 
-        for (let i=0;i<copyItemsArray.length;i++) {
+        for (let i = 0; i < copyItemsArray.length; i++) {
             const hash = hashItem[i]
             const type = typeItem[i]
             const order = orderItem[i]
-            
+
             copyItemsArray[i] = {
                 hash: hash ? String(hash) : "Vazio",
                 type: type ? String(type) : "Vazio",
@@ -65,7 +65,7 @@ function App() {
     const handleHashItem = (index: number, value: string) => {
         setHashItem(prevHashItem => {
             const copyHashItem = [...prevHashItem];
-            copyHashItem[index-1] = value
+            copyHashItem[index - 1] = value
             return copyHashItem;
         });
     }
@@ -73,7 +73,7 @@ function App() {
     const handleTypeItem = (index: number, value: string) => {
         setTypeItem(prevTypeItem => {
             const copyTypeItem = [...prevTypeItem]
-            copyTypeItem[index-1] = value
+            copyTypeItem[index - 1] = value
             return copyTypeItem
         })
     }
@@ -81,12 +81,12 @@ function App() {
     const handleOrderItem = (index: number, value: string) => {
         setOrderItem(prevOrderItem => {
             const copyOrderItem = [...prevOrderItem];
-            copyOrderItem[index-1] = Number(value)
+            copyOrderItem[index - 1] = Number(value)
             return copyOrderItem;
         });
     }
 
-    const[items, setItems] = useState<item[]>([])    
+    const [items, setItems] = useState<item[]>([])
 
     const disciplineCreator = {
         sections: [
@@ -101,11 +101,11 @@ function App() {
 
     const handleTrashClick = (order: number) => {
         console.log("Orderm para deletar ", order)
-        
+
 
         setItems(prevItems => {
             const newPrevItems = prevItems.filter(item => item.order !== order)
-            for (let i=0;i<newPrevItems.length;i++) {
+            for (let i = 0; i < newPrevItems.length; i++) {
                 if (newPrevItems[i].order == order + 1) {
                     newPrevItems[i].content = (
                         <ItemCreationArea order={order} setHashItem={handleHashItem} setTypeItem={handleTypeItem} onTrashClick={handleTrashClick} setOrderItem={handleOrderItem} />
@@ -166,21 +166,23 @@ function App() {
     
 
     return (
-        <div className="main">
-            <div>
-                <InputArea title="Titulo da avaliacao" handleInputValue={handleQuestionReadyTitles} />
-                <InputArea title="Hash da avaliacao" handleInputValue={handleHashAvaliacao} />
-                {items.map((value) => (
-                    <div key={value ? value.order : ""}>
-                        {value.content}
-                    </div>
-                ))}
-                <CreateNewQuestion onClick={handleAddItemComponent} />
+        <main className="container my-3">
+            <div className="row">
+                <div className="col-12 col-md-4">
+                    <InputArea title="Título da avaliacao" placeholder="Título da Avaliacao" handleInputValue={handleQuestionReadyTitles} />
+                    <InputArea title="Hash da avaliacao" handleInputValue={handleHashAvaliacao} />
+                    {items.map((value) => (
+                        <div key={value ? value.order : ""}>
+                            {value.content}
+                        </div>
+                    ))}
+                    <CreateNewQuestion onClick={handleAddItemComponent} />
+                </div>
+                <div className="col-12 col-md-8 watch-area">
+                    <WatchArea disciplineObject={disciplineCreator} />
+                </div>
             </div>
-            <div>
-                <WatchArea disciplineObject={disciplineCreator} />
-            </div>
-        </div>
+        </main>
     );
 }
 

@@ -1,5 +1,25 @@
+@import url('@codecompanybrasil/discipline-core/dist/styles/discipline-core.min.css');
+
+/* FIX - Discipline Core: 
+* - Remover Html, Body width e height. 
+* - Incluir box-sizing para que os elementos não ultrapassem as grids
+* - Adicionar estilização de form-control (customizando para o visual do discipline)
+*/
+body, html {
+    width: initial;
+    height: initial;
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+/*  */
+
+.watch-area {
+    height: calc(100vh - 2rem);
+}
+
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
     --black: #1a1a1a;
@@ -41,10 +61,12 @@ button {
     cursor: pointer;
     transition: border-color 0.25s;
 }
+
 button:hover {
     border-color: #646cff;
     background-color: rgb(58, 58, 58);
 }
+
 button:focus,
 button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
@@ -55,6 +77,7 @@ button:focus-visible {
         color: #213547;
         background-color: #ffffff;
     }
+
     a:hover {
         color: #747bff;
     }
