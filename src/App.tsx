@@ -1,47 +1,153 @@
 import "./App.css";
-import QuestionVisualizer from "./Components/QuestionVisualizer/QuestionVisualizer";
-import InputArea from "./Components/InputArea/InputArea";
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import WatchArea from "./Components/WatchArea/WatchArea";
-import { FiPlusCircle } from 'react-icons/fi'
-import { DisciplineFileData, DcpQuestionAndQuestionGroup } from "./_types/Question";
+import { DcpQuestionAndQuestionGroup, DcpItemHeader } from "./_types/Question";
 import ItemCreationArea from "./Components/ItemCreationArea/ItemCreationArea";
+import CreateNewQuestion from "./Components/CreateNewQuestion/CreateNewQuestion";
+import { InputArea } from "./Components/InputArea/InputArea";
 
-type createNewQuestionProps = {
-    onClick: () => void
+interface item {
+    order: number,
+    content: JSX.Element
 }
 
-function CreateNewQuestion({ onClick }: createNewQuestionProps) {
-    return (
-        <div onClick={onClick} className="create_new_question_area" >
-            <FiPlusCircle />
-        </div>
-    )
-}
 
 function App() {
-    const [itemsDiscipline, setItemsDiscipline] = useState<DcpQuestionAndQuestionGroup[]>()
+    const [itemsDiscipline, setItemsDiscipline] = useState<DcpQuestionAndQuestionGroup[]>([])
     const [titleAvaliacao, setTitleAvaliacao] = useState<string>("")
     const [hashAvaliacao, setHashAvaliacao] = useState<string>("")
-    const [hashItem, setHashItem] = useState<string>("")
-    const [typeItem, setTypeItem] = useState<string>("")
-    const [testeContents, setTesteContents] = useState(['']); // Estado inicial com um componente <Teste />
+    const [hashItem, setHashItem] = useState<string[]>([])
+    const [typeItem, setTypeItem] = useState<string[]>([])
+    const [orderItem, setOrderItem] = useState<number[]>([])
+    const [headerItems, setHeaderItems] = useState<DcpItemHeader[]>([])
+
+    // useEffect(() => {
+    //     console.log(hashItem)
+    //     console.log(hashItem.find(element => element.order == 1)?.content)
+    // }, [hashItem])
+
+    // useEffect(() => {
+    //     console.log(hashItem)
+    // }, [hashItem])
+
+    useEffect(() => {
+        console.log(titleAvaliacao)
+    }, [titleAvaliacao])
+
+    useEffect(() => {
+        const copyItemsArray = [...itemsDiscipline]
+
+        for (let i=0;i<hashItem.length;i++) {
+            if (hashItem[i] == undefined) {
+                hashItem.splice(i, 1)
+            }
+        }
+
+        console.log(hashItem)
+
+        for (let i=0;i<copyItemsArray.length;i++) {
+            const hash = hashItem[i]
+            const type = typeItem[i]
+            const order = orderItem[i]
+            
+            copyItemsArray[i] = {
+                hash: hash ? String(hash) : "Vazio",
+                type: type ? String(type) : "Vazio",
+                questionType: "radio",
+                order: order,
+                header: copyItemsArray[i].header
+            }
+        }
+
+        setItemsDiscipline(copyItemsArray)
+    }, [hashItem, typeItem, orderItem, headerItems])
+
+    const handleHashItem = (index: number, value: string) => {
+        setHashItem(prevHashItem => {
+            const copyHashItem = [...prevHashItem];
+            copyHashItem[index-1] = value
+            return copyHashItem;
+        });
+    }
+
+    const handleTypeItem = (index: number, value: string) => {
+        setTypeItem(prevTypeItem => {
+            const copyTypeItem = [...prevTypeItem]
+            copyTypeItem[index-1] = value
+            return copyTypeItem
+        })
+    }
+
+    const handleOrderItem = (index: number, value: string) => {
+        setOrderItem(prevOrderItem => {
+            const copyOrderItem = [...prevOrderItem];
+            copyOrderItem[index-1] = Number(value)
+            return copyOrderItem;
+        });
+    }
+
+    const[items, setItems] = useState<item[]>([])    
 
     const disciplineCreator = {
         sections: [
             {
                 title: titleAvaliacao,
                 hash: hashAvaliacao,
-                items: itemsDiscipline
+                items: itemsDiscipline,
             }
         ],
         answers: []
     }
 
-    const handleAddTesteComponent = () => {
+    const handleTrashClick = (order: number) => {
+        console.log("Orderm para deletar ", order)
+        
+
+        setItems(prevItems => {
+            const newPrevItems = prevItems.filter(item => item.order !== order)
+            for (let i=0;i<newPrevItems.length;i++) {
+                if (newPrevItems[i].order == order + 1) {
+                    newPrevItems[i].content = (
+                        <ItemCreationArea order={order} setHashItem={handleHashItem} setTypeItem={handleTypeItem} onTrashClick={handleTrashClick} setOrderItem={handleOrderItem} />
+                    )
+                }
+                console.log(newPrevItems[i].order)
+            }
+            return prevItems.filter(item => item.order !== order)
+        });
+        setItemsDiscipline(prevItemsDiscipline => prevItemsDiscipline.filter(item => item.order !== order));
+        setHashItem(prevHashItem => prevHashItem.filter((value, index) => index + 1 !== order));
+    }
+
+    const handleAddItemComponent = () => {
         // Cria um novo array copiando os estados dos componentes <Teste /> existentes
-        const updatedContents = [...testeContents, ''];
-        setTesteContents(updatedContents);
+        const copyItems = [...items]
+        const copyItemsArray = [...itemsDiscipline]
+        const myOrder = copyItems.length ? copyItems[copyItems.length - 1].order + 1 : 1
+
+        // handleHashItem(myOrder, "")
+
+        copyItems.push(
+            {
+                order: myOrder,
+                content: (<ItemCreationArea order={myOrder} onTrashClick={handleTrashClick} setHashItem={handleHashItem} setTypeItem={handleTypeItem} setOrderItem={handleOrderItem} />)
+            }
+        )
+        copyItemsArray.push({
+            // hash: String(hashItem.find(element => element.order == myOrder)?.content),
+            hash: hashItem.find((item, index) => index === myOrder) || '',
+            type: "question",
+            order: myOrder,
+            questionType: "radio",
+            header: [
+
+            ]
+        })
+
+        console.log(`HashItems Lenght ${hashItem.length}`)
+
+        setItems(copyItems)
+        setItemsDiscipline(copyItemsArray)
     };
 
     // const handleContentChange = (index, content) => {
@@ -50,29 +156,26 @@ function App() {
     //     setTesteContents(updatedContents);
     // };
 
-    const handleQuestionReadyTitles = (value: string) => {
+    const handleQuestionReadyTitles = (order: number, value: string) => {
         setTitleAvaliacao(value)
     }
 
-    const handleHashAvaliacao = (value: string) => {
+    const handleHashAvaliacao = (order: number, value: string) => {
         setHashAvaliacao(value)
     }
-
-    const handleHashItem = (value: string) => {
-        setHashItem(value)
-    }
-
-    const handleTypeItem = (value: string) => {
-        setTypeItem(value)
-    }
+    
 
     return (
         <div className="main">
             <div>
                 <InputArea title="Titulo da avaliacao" handleInputValue={handleQuestionReadyTitles} />
                 <InputArea title="Hash da avaliacao" handleInputValue={handleHashAvaliacao} />
-                <CreateNewQuestion onClick={handleAddTesteComponent} />
-                <ItemCreationArea setHashItem={handleHashItem} setTypeItem={handleTypeItem} />
+                {items.map((value) => (
+                    <div key={value ? value.order : ""}>
+                        {value.content}
+                    </div>
+                ))}
+                <CreateNewQuestion onClick={handleAddItemComponent} />
             </div>
             <div>
                 <WatchArea disciplineObject={disciplineCreator} />

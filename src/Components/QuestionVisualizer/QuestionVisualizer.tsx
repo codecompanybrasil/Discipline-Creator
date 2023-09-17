@@ -3,16 +3,18 @@ import { FiTrash } from 'react-icons/fi'
 
 type QuestionVisualizerProps = {
     title: string,
-    onClick: () => void
+    order: number
+    onClick: () => void,
+    onTrashClick: (order: number) => void
 }
 
-function QuestionVisualizer({title, onClick}: QuestionVisualizerProps) {
+function QuestionVisualizer({title, order, onClick, onTrashClick}: QuestionVisualizerProps) {
     return (
-        <div style={{display: "flex", gap: "10px", justifyContent: "center", alignItems: "center"}}>
+        <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
             <div className={styles.query_main} onClick={onClick} >
-                <h2>{title}</h2>
+                <h2>{`Question ${title}`}</h2>
             </div>
-            <div className="clickable_icon" >
+            <div className="clickable_icon" onClick={() => onTrashClick(order)} >
                 <FiTrash />
             </div>
         </div>

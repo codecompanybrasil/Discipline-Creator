@@ -15,7 +15,7 @@ interface DcpQuestionOption {
     image?: DcpImage;
 }
 
-interface DcpItemHeader {
+export interface DcpItemHeader {
     order: number;
     title?: string;
     message?: DcpMessage;
@@ -57,7 +57,7 @@ export interface DcpQuestionAndQuestionGroup {
     _comment?: string;
     order: number;
     hash: string;
-    type: "question" | "group";
+    type: "question" | "group" | string;
     questionType?: "radio" | "checkbox";
     options?: DcpQuestionOption[],
     header: DcpItemHeader[],
