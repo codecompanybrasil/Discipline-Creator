@@ -1,7 +1,10 @@
-import "./App.css";
 import { useState, useEffect } from "react";
-import WatchArea from "./Components/WatchArea/WatchArea";
+
+import "./App.css";
+
 import { DcpQuestionAndQuestionGroup, DcpItemHeader } from "./_types/Question";
+
+import WatchArea from "./Components/WatchArea/WatchArea";
 import ItemCreationArea from "./Components/ItemCreationArea/ItemCreationArea";
 import CreateNewQuestion from "./Components/CreateNewQuestion/CreateNewQuestion";
 import { InputArea } from "./Components/InputArea/InputArea";
@@ -10,7 +13,6 @@ interface item {
     order: number,
     content: JSX.Element
 }
-
 
 function App() {
     const [itemsDiscipline, setItemsDiscipline] = useState<DcpQuestionAndQuestionGroup[]>([])
@@ -91,8 +93,6 @@ function App() {
     const disciplineCreator = {
         sections: [
             {
-                title: titleAvaliacao,
-                hash: hashAvaliacao,
                 items: itemsDiscipline,
             }
         ],
@@ -139,9 +139,7 @@ function App() {
             type: "question",
             order: myOrder,
             questionType: "radio",
-            header: [
-
-            ]
+            header: []
         })
 
         console.log(`HashItems Lenght ${hashItem.length}`)
@@ -163,10 +161,9 @@ function App() {
     const handleHashAvaliacao = (order: number, value: string) => {
         setHashAvaliacao(value)
     }
-    
 
     return (
-        <main className="container my-3">
+        <main className="container py-3">
             <div className="row">
                 <div className="col-12 col-md-4">
                     <InputArea title="Título da avaliacao" placeholder="Título da Avaliacao" handleInputValue={handleQuestionReadyTitles} />
@@ -178,7 +175,7 @@ function App() {
                     ))}
                     <CreateNewQuestion onClick={handleAddItemComponent} />
                 </div>
-                <div className="col-12 col-md-8 watch-area">
+                <div className="col-12 col-md-8">
                     <WatchArea disciplineObject={disciplineCreator} />
                 </div>
             </div>

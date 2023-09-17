@@ -1,5 +1,7 @@
-import styles from './QuestionVisualizer.module.css'
 import { FiTrash } from 'react-icons/fi'
+import { DcpButton, DcpIconButton } from '@codecompanybrasil/discipline-core';
+
+import styles from './QuestionVisualizer.module.css'
 
 type QuestionVisualizerProps = {
     title: string,
@@ -8,15 +10,13 @@ type QuestionVisualizerProps = {
     onTrashClick: (order: number) => void
 }
 
-function QuestionVisualizer({title, order, onClick, onTrashClick}: QuestionVisualizerProps) {
+function QuestionVisualizer({ title, order, onClick, onTrashClick }: QuestionVisualizerProps) {
     return (
-        <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
-            <div className={styles.query_main} onClick={onClick} >
-                <h2>{`Question ${title}`}</h2>
-            </div>
-            <div className="clickable_icon" onClick={() => onTrashClick(order)} >
+        <div className='my-2 dcp-btn-group'>
+            <DcpButton className={styles.query_main} onClick={onClick} text={`Question ${title}`}></DcpButton>
+            <DcpIconButton color='primary' onClick={() => onTrashClick(order)}>
                 <FiTrash />
-            </div>
+            </DcpIconButton>
         </div>
     )
 }

@@ -1,6 +1,10 @@
-import styles from './WatchArea.module.css'
-// import { DisciplineFileData } from '../../_types/Question'
 import { useRef, useState } from 'react'
+
+import { DcpButton } from '@codecompanybrasil/discipline-core'
+
+// import { DisciplineFileData } from '../../_types/Question'
+
+import styles from './WatchArea.module.css'
 
 type WatchAreaProps = {
     disciplineObject: any;
@@ -49,9 +53,9 @@ function WatchArea({ disciplineObject }: WatchAreaProps) {
                 className={styles.textArea + ' form-control'}
                 style={{ resize: "none" }}></textarea>
             <div className={styles.button_area}>
-                <button onClick={onCopyButtonClick}>Copiar</button>
-                <button onClick={handleDownloadJSON}>Download</button>
-                <button onClick={handleDestravar}>{textDestravar}</button>
+                <DcpButton onClick={onCopyButtonClick} text="Copiar"></DcpButton>
+                <DcpButton onClick={handleDownloadJSON} text="Download"></DcpButton>
+                <DcpButton onClick={handleDestravar} text={textDestravar}></DcpButton>
             </div>
         </div>
     )

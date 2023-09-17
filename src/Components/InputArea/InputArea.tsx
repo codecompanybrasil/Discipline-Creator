@@ -1,9 +1,10 @@
-import styles from './InputArea.module.css'
 import { ChangeEvent } from 'react';
+
+import styles from './InputArea.module.css'
 
 export type InputAreaProps = {
     title: string,
-    type?: "text" | "textArea"
+    type?: "text" | "textArea",
     order?: number,
     placeholder?: string,
     returnParam?: (param: any) => void,
@@ -50,11 +51,11 @@ export function InputArea({
 
     return (
         <>
-            <h3>{title}</h3>
+            <label>{title}</label>
 
             {(type === 'textArea') ? (
                 <>
-                    <textarea cols={30} rows={10} onChange={handleInternalInputValue} placeholder={placeholder}></textarea>
+                    <textarea onChange={handleInternalInputValue} placeholder={placeholder}></textarea>
                 </>
             ) : (
                 <input type="text" className={styles.input + ' form-control'} onChange={handleInternalInputValue} placeholder={placeholder} />

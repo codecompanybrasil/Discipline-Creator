@@ -11,7 +11,7 @@
         "preview": "vite preview"
     },
     "dependencies": {
-        "@codecompanybrasil/discipline-core": "^1.0.15",
+        "@codecompanybrasil/discipline-core": "^1.0.17",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-icons": "^4.11.0"
@@ -25,6 +25,7 @@
         "eslint": "^8.45.0",
         "eslint-plugin-react-hooks": "^4.6.0",
         "eslint-plugin-react-refresh": "^0.4.3",
+        "tslib": "^2.6.2",
         "typescript": "^5.0.2",
         "vite": "^4.4.5"
     }

@@ -1,10 +1,11 @@
 .query_main {
-    margin-left: 10px;
-    background-color: var(--black);
-    color: white;
+    width: 100%;
     padding: 10px;
-    border-radius: 10px;
-    display: inline-flex;
-    cursor: pointer;
-    margin-top: 10px;
+    font-size: 1.5em;
+    text-align: left;
+    color: var(--dcp-white-color);
+    background-color: var(--dcp-primary-color);
+    border: 1px solid var(--dcp-primary-border-color);
+    border-radius: var(--dcp-border-radius-lg);
+    user-select: none;
 }
