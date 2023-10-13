@@ -9,6 +9,7 @@ type ItemCreationArea = {
     setTypeItem: (order: number, value: string) => void,
     setOrderItem: (order: number, value: string) => void,
     onTrashClick: (order: number) => void,
+    hashValue?: string,
     order: number
 }
 
@@ -44,9 +45,9 @@ function ItemCreationArea(props: ItemCreationArea) {
 
     return (
         <div className={styles.item_area} >
-            <QuestionVisualizer order={props.order} title={props.order ? String(props.order) : "Question"} onClick={handleQuestionStyle} onTrashClick={props.onTrashClick} />
+            <QuestionVisualizer order={props.order} title={String(props.order + 1)} onClick={handleQuestionStyle} onTrashClick={props.onTrashClick} />
             <div className={styles.item_question_area} style={questionStyle}>
-                <InputArea title="hash" handleInputValue={props.setHashItem} order={props.order} />
+                <InputArea title="hash" handleInputValue={props.setHashItem} order={props.order} value={props.hashValue ?? ""} />
                 <InputArea title="type" handleInputValue={props.setTypeItem} order={props.order} />
                 <InputArea title="order" handleInputValue={props.setOrderItem} order={props.order} />
                 <InputAreaGroup title="header" inputsList={inputsList} />

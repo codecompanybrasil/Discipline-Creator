@@ -32,42 +32,42 @@ function App() {
     //     console.log(hashItem)
     // }, [hashItem])
 
-    useEffect(() => {
-        console.log(titleAvaliacao)
-    }, [titleAvaliacao])
+    // useEffect(() => {
+    //     console.log(itemsDiscipline)
+    // }, [itemsDiscipline])
 
-    useEffect(() => {
+    const correctingItemsDiscipline = () => {
         const copyItemsArray = [...itemsDiscipline]
-
-        for (let i = 0; i < hashItem.length; i++) {
-            if (hashItem[i] == undefined) {
-                hashItem.splice(i, 1)
-            }
-        }
-
-        console.log(hashItem)
 
         for (let i = 0; i < copyItemsArray.length; i++) {
             const hash = hashItem[i]
             const type = typeItem[i]
             const order = orderItem[i]
+            getCorrectOrder(i)
 
             copyItemsArray[i] = {
                 hash: hash ? String(hash) : "Vazio",
                 type: type ? String(type) : "Vazio",
                 questionType: "radio",
-                order: order,
+                order: order ?? itemsDiscipline[i].order,
                 header: copyItemsArray[i].header
             }
         }
+        //console.log(copyItemsArray)
 
         setItemsDiscipline(copyItemsArray)
-    }, [hashItem, typeItem, orderItem, headerItems])
+    }
+
+    useEffect(() => correctingItemsDiscipline(), [hashItem, typeItem, orderItem, headerItems])
+
+    const getCorrectOrder = (i: number) => {
+        return itemsDiscipline[i].order
+    }
 
     const handleHashItem = (index: number, value: string) => {
         setHashItem(prevHashItem => {
             const copyHashItem = [...prevHashItem];
-            copyHashItem[index - 1] = value
+            copyHashItem[index] = value
             return copyHashItem;
         });
     }
@@ -75,7 +75,7 @@ function App() {
     const handleTypeItem = (index: number, value: string) => {
         setTypeItem(prevTypeItem => {
             const copyTypeItem = [...prevTypeItem]
-            copyTypeItem[index - 1] = value
+            copyTypeItem[index] = value
             return copyTypeItem
         })
     }
@@ -83,7 +83,7 @@ function App() {
     const handleOrderItem = (index: number, value: string) => {
         setOrderItem(prevOrderItem => {
             const copyOrderItem = [...prevOrderItem];
-            copyOrderItem[index - 1] = Number(value)
+            copyOrderItem[index] = Number(value)
             return copyOrderItem;
         });
     }
@@ -101,38 +101,40 @@ function App() {
         answers: []
     }
 
+    // useEffect(() => {
+    //     console.log(itemsDiscipline)
+    // }, [items])
+
     const handleTrashClick = (order: number) => {
-        console.log("Orderm para deletar ", order)
-
-
         setItems(prevItems => {
-            const newPrevItems = prevItems.filter(item => item.order !== order)
-            for (let i = 0; i < newPrevItems.length; i++) {
-                if (newPrevItems[i].order == order + 1) {
-                    newPrevItems[i].content = (
-                        <ItemCreationArea order={order} setHashItem={handleHashItem} setTypeItem={handleTypeItem} onTrashClick={handleTrashClick} setOrderItem={handleOrderItem} />
-                    )
-                }
-                console.log(newPrevItems[i].order)
-            }
-            return prevItems.filter(item => item.order !== order)
+            const ItemsFiltered = prevItems.filter((item, index) => {
+                //console.log(`Item Order: ${item.order} - Order: ${order} - Index: ${index}`)
+                return index !== order
+            })
+            console.log(ItemsFiltered)
+            return ItemsFiltered
         });
-        setItemsDiscipline(prevItemsDiscipline => prevItemsDiscipline.filter(item => item.order !== order));
-        setHashItem(prevHashItem => prevHashItem.filter((value, index) => index + 1 !== order));
+        setItemsDiscipline(prevItemsDiscipline => {
+            //console.log(prevItemsDiscipline)
+            return prevItemsDiscipline.filter((_, index) => index !== order)
+        });
+        setHashItem(prevHashItem => prevHashItem.filter((_, index) => index !== order));
+        //correctingItemsDiscipline()
     }
 
     const handleAddItemComponent = () => {
         // Cria um novo array copiando os estados dos componentes <Teste /> existentes
         const copyItems = [...items]
         const copyItemsArray = [...itemsDiscipline]
-        const myOrder = copyItems.length ? copyItems[copyItems.length - 1].order + 1 : 1
+        const myOrder = itemsDiscipline.length ?? 1
+        //const myOrder = copyItems.length ? copyItems[copyItems.length - 1].order + 1 : 1
 
         // handleHashItem(myOrder, "")
 
         copyItems.push(
             {
                 order: myOrder,
-                content: (<ItemCreationArea order={myOrder} onTrashClick={handleTrashClick} setHashItem={handleHashItem} setTypeItem={handleTypeItem} setOrderItem={handleOrderItem} />)
+                content: (<ItemCreationArea order={myOrder} onTrashClick={handleTrashClick} setHashItem={handleHashItem} setTypeItem={handleTypeItem} setOrderItem={handleOrderItem} hashValue={hashItem.find((item, index) => index === myOrder) || ''} />)
             }
         )
         copyItemsArray.push({
@@ -144,8 +146,6 @@ function App() {
             header: []
         })
 
-        console.log(`HashItems Lenght ${hashItem.length}`)
-
         setItems(copyItems)
         setItemsDiscipline(copyItemsArray)
     };
@@ -156,11 +156,11 @@ function App() {
     //     setTesteContents(updatedContents);
     // };
 
-    const handleQuestionReadyTitles = (order: number, value: string) => {
+    const handleQuestionReadyTitles = (_: number, value: string) => { //_ == order
         setTitleAvaliacao(value)
     }
 
-    const handleHashAvaliacao = (order: number, value: string) => {
+    const handleHashAvaliacao = (_: number, value: string) => { // _ == order
         setHashAvaliacao(value)
     }
 
@@ -176,8 +176,8 @@ function App() {
                         title="Hash da avaliacao (UUID)"
                         placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
                         handleInputValue={handleHashAvaliacao} />
-                    {items.map((value) => (
-                        <div key={value ? value.order : ""}>
+                    {items.map((value, index) => (
+                        <div key={index}>
                             {value.content}
                         </div>
                     ))}

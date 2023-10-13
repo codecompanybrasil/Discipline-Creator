@@ -1,19 +1,20 @@
 import { ChangeEvent } from 'react';
 
 import styles from './InputArea.module.css'
+import { useState } from 'react';
 
 export type InputAreaProps = {
     title: string,
     type?: "text" | "textArea",
     order?: number,
+    value?: string,
     placeholder?: string,
-    returnParam?: (param: any) => void,
+    returnParam?: (param: string) => void,
     handleInputValue: (order: number, value: string) => void
 }
 
 type InputAreaGroupProps = {
     title: string,
-    returnParam?: (param: any) => void,
     inputsList: InputAreaProps[]
 }
 
@@ -36,9 +37,11 @@ export function InputArea({
     placeholder,
     handleInputValue,
     returnParam,
-    order
+    value,
+    order,
 }: InputAreaProps) {
     const handleInternalInputValue = (event: (ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>)) => {
+        setMyValue(event.target.value)
         if (order) {
             handleInputValue(order, event.target.value)
         } else {
@@ -49,6 +52,8 @@ export function InputArea({
         }
     }
 
+    const [myValue, setMyValue] = useState<string>(value || "")
+
     return (
         <>
             <label>{title}</label>
@@ -58,7 +63,7 @@ export function InputArea({
                     <textarea onChange={handleInternalInputValue} placeholder={placeholder}></textarea>
                 </>
             ) : (
-                <input type="text" className={styles.input + ' form-control'} onChange={handleInternalInputValue} placeholder={placeholder} />
+                <input type="text" className={' form-control'} onChange={handleInternalInputValue} placeholder={placeholder} value={myValue} />
             )}
         </>
     )
