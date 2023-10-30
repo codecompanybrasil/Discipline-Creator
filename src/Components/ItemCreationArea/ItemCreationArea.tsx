@@ -5,20 +5,25 @@ import styles from './ItemCreationArea.module.css'
 import { CSSProperties, useState } from "react"
 
 type ItemCreationArea = {
-    setHashItem: (order: number, value: string) => void,
-    setTypeItem: (order: number, value: string) => void,
-    setOrderItem: (order: number, value: string) => void,
-    onTrashClick: (order: number) => void,
-    hashValue?: string,
+    handleHashItem: (order: number, value: string) => void,
+    // handleTypeItem: (order: number, value: string) => void,
+    handleTrashClick: (order: number) => void,
     order: number
+}
+
+type InputListDetailsProps = {
+    titles: string[],
+    types: ("text"|"textArea")[],
+    handleInputValue: () => void
 }
 
 function ItemCreationArea(props: ItemCreationArea) {
     const [questionStyle, setQuestionStyle] = useState<CSSProperties>({display: "flex"})
     const inputsList: InputAreaProps[] = []
-    const inputsListDetails: {titles: string[], types: ("text"|"textArea")[]} = {
+    const inputsListDetails: InputListDetailsProps = {
         titles: ["title", "order", "image"],
-        types: ["text", "text", "text", "textArea"]
+        types: ["text", "text", "text", "textArea"],
+        handleInputValue: () => {}
     }
 
     for (let i=0;i<inputsListDetails.titles.length;i++) {
@@ -45,11 +50,10 @@ function ItemCreationArea(props: ItemCreationArea) {
 
     return (
         <div className={styles.item_area} >
-            <QuestionVisualizer order={props.order} title={String(props.order + 1)} onClick={handleQuestionStyle} onTrashClick={props.onTrashClick} />
+            <QuestionVisualizer order={props.order} title={String(props.order + 1)} onClick={handleQuestionStyle} onTrashClick={props.handleTrashClick} />
             <div className={styles.item_question_area} style={questionStyle}>
-                <InputArea title="hash" handleInputValue={props.setHashItem} order={props.order} value={props.hashValue ?? ""} />
-                <InputArea title="type" handleInputValue={props.setTypeItem} order={props.order} />
-                <InputArea title="order" handleInputValue={props.setOrderItem} order={props.order} />
+                <InputArea title="hash" handleInputValue={props.handleHashItem} order={props.order} />
+                {/* <InputArea title="type" handleInputValue={props.handleTypeItem} order={props.order} /> */}
                 <InputAreaGroup title="header" inputsList={inputsList} />
             </div>
         </div>

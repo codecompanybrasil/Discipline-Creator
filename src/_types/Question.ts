@@ -54,8 +54,6 @@ export interface DcpQuestionGroup extends DcpSectionItem {
 // }
 
 export interface DcpQuestionAndQuestionGroup {
-    _comment?: string;
-    order: number;
     hash: string;
     type: "question" | "group" | string;
     questionType?: "radio" | "checkbox";
