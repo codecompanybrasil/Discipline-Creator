@@ -6,12 +6,13 @@
     cursor: pointer;
 }
 
-main > .row > [class^='col-'] {
-    height: calc(100vh - 2rem);
+.form-area {
+    overflow-y: auto;
+    padding-bottom: 20px;
+    max-height: calc(100vh - 2rem);
 }
 
-.form-area {
-    overflow-y: scroll;
+.content-area {
     height: calc(100vh - 2rem);
 }
 

@@ -109,9 +109,9 @@ function App() {
         });
     }
     return (
-        <main className="container py-3">
+        <main className="container-fluid py-3">
             <div className="row">
-                <div className="col-12 col-md-4 form-area">
+                <div className="col-12 col-md-4 col-xl-3 form-area">
                     <InputArea
                         title="Título da avaliacao"
                         placeholder="Título da Avaliacao"
@@ -127,7 +127,7 @@ function App() {
                     ))}
                     <CreateNewQuestion onClick={handleAddItemComponent} />
                 </div>
-                <div className="col-12 col-md-8">
+                <div className="col-12 col-md-8 col-xl-9 content-area">
                     <WatchArea disciplineObject={disciplineObj} />
                 </div>
             </div>
