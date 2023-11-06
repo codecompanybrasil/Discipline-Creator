@@ -109,9 +109,9 @@ function App() {
         });
     }
     return (
-        <main className="container-fluid py-3">
+        <main className="container-fluid">
             <div className="row">
-                <div className="col-12 col-md-4 col-xl-3 form-area">
+                <div className="col-12 col-md-4 col-xl-3 form-area py-3">
                     <InputArea
                         title="Título da avaliacao"
                         placeholder="Título da Avaliacao"

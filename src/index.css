@@ -5,24 +5,27 @@
 * - Incluir box-sizing para que os elementos não ultrapassem as grids
 * - Adicionar estilização de form-control (customizando para o visual do discipline)
 */
-body, html {
+body,
+html {
     width: initial;
     height: initial;
 }
 
-*, ::after, ::before {
+*,
+::after,
+::before {
     box-sizing: border-box;
 }
+
 /*  */
 
 :root {
     line-height: 1.5;
     font-weight: 400;
-    --black: #1a1a1a;
 
     color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
+    color: #213547;
+    background-color: #F0F0F0;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -68,13 +71,65 @@ button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
 } */
 
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
+/* START - Custom Scrollbar */
+
+* {
+    scrollbar-color: #eaeaea #d4d4d4;
+    scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+*::-webkit-scrollbar-corner {
+    background: #c0c0c0;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #eaeaea;
+    border: 1px solid #c0c0c0;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: #848484;
+}
+
+*::-webkit-scrollbar-track {
+    border: 1px solid #c0c0c0;
+    background-color: #c0c0c0;
+}
+
+@media (prefers-color-scheme: dark) {
+    * {
+        scrollbar-color: #606060 #393939;
     }
 
-    a:hover {
-        color: #747bff;
+    *::-webkit-scrollbar-corner {
+        background: #393939;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background: #606060;
+        border: 1px solid #393939;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+        background: #868686;
+    }
+
+    *::-webkit-scrollbar-track {
+        border: 1px solid #393939;
+        background-color: #393939;
+    }
+}
+
+/* END - Custom Scrollbar */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color: rgba(255, 255, 255, 0.87);
+        background-color: #242424;
     }
 }

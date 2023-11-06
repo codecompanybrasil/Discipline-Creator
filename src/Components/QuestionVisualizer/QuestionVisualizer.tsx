@@ -12,7 +12,7 @@ type QuestionVisualizerProps = {
 
 function QuestionVisualizer({ title, order, onClick, onTrashClick }: QuestionVisualizerProps) {
     return (
-        <div className='my-2 dcp-btn-group'>
+        <div className='my-2 dcp-btn-group square-border'>
             <DcpButton className={styles.query_main} onClick={onClick} text={`Question ${title}`}></DcpButton>
             <DcpIconButton color='primary' onClick={() => onTrashClick(order)}>
                 <FiTrash />

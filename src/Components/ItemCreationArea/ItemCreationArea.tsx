@@ -18,7 +18,7 @@ type InputListDetailsProps = {
 }
 
 function ItemCreationArea(props: ItemCreationArea) {
-    const [questionStyle, setQuestionStyle] = useState<CSSProperties>({display: "flex"})
+    const [questionStyle, setQuestionStyle] = useState<CSSProperties>({display: "block"})
     const inputsList: InputAreaProps[] = []
     const inputsListDetails: InputListDetailsProps = {
         titles: ["title", "order", "image"],
@@ -43,7 +43,7 @@ function ItemCreationArea(props: ItemCreationArea) {
             })
         } else {
             setQuestionStyle({
-                display: "flex"
+                display: "block"
             })
         }
     }

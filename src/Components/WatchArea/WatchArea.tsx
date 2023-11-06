@@ -1,8 +1,4 @@
-import { useRef, useState } from 'react'
-
 import { DcpButton } from '@codecompanybrasil/discipline-core'
-
-// import { DisciplineFileData } from '../../_types/Question'
 
 import styles from './WatchArea.module.css'
 
@@ -42,7 +38,7 @@ function WatchArea({ disciplineObject }: WatchAreaProps) {
 
     return (
         <div className={styles.watchAreaContainer}>
-            <pre id="jsonData" className={styles.textArea + ' form-control'}>
+            <pre id="jsonData" className={styles.jsonDataContainer}>
                 {JSON.stringify(disciplineObject, null, 4)}
             </pre>
 

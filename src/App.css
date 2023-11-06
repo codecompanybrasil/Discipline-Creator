@@ -9,11 +9,19 @@
 .form-area {
     overflow-y: auto;
     padding-bottom: 20px;
-    max-height: calc(100vh - 2rem);
+    max-height: 100vh;
+    background-color: #d8d8d8;
+    box-shadow: 1px 1px 8px 0px rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+    .form-area {
+        background-color: #202020;
+    }
 }
 
 .content-area {
-    height: calc(100vh - 2rem);
+    height: 100vh;
 }
 
 /* FIX - Incluir customização de input no Discipline Core */
@@ -31,7 +39,7 @@
     appearance: none;
     background-color: var(--dcp-white-color);
     background-clip: padding-box;
-    border: 1px solid black;
+    border: 1px solid var(--dcp-black-color);
     border-radius: var(--dcp-border-radius-sm);
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
@@ -73,6 +81,15 @@
 .dcp-btn-group :last-child {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+}
+
+.square-border {
+    border-radius: 0 !important;
+}
+
+.dcp-btn-group.square-border a,
+.dcp-btn-group.square-border button {
+    border-radius: 0 !important;
 }
 
 /*  */

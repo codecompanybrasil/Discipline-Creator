@@ -59,7 +59,7 @@ export function InputArea({
                     <textarea onChange={handleInternalInputValue} placeholder={placeholder}></textarea>
                 </>
             ) : (
-                <input type="text" className={' form-control'} onChange={handleInternalInputValue} placeholder={placeholder} id={String(order)} value={value}/>
+                <input type="text" className={'form-control square-border'} onChange={handleInternalInputValue} placeholder={placeholder} id={String(order)} value={value}/>
             )}
         </>
     )

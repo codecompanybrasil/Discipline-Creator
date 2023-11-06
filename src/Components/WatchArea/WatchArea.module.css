@@ -3,11 +3,15 @@
     grid-template-columns: auto;
     grid-template-rows: 1fr auto;
     grid-gap: 10px;
-    height: inherit;
+    height: 100%;
 }
 
-.textArea {
-    height: 100%;
+.jsonDataContainer {
+    overflow-y: auto;
+    padding: var(--dcp-padding-lg);
+    color: var(--dcp-black-color);
+    background-color: var(--dcp-white-color);
+    border: 1px solid black;
 }
 
 .button_area {
